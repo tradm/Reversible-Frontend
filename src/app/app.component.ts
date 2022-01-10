@@ -12,6 +12,7 @@ import { ReversibleService } from './services/reversible.service';
 
 export class AppComponent implements OnInit, OnDestroy {
   testForm: FormGroup;
+  testResult: Array<number> = undefined;
 
   get f(): any {
     return this.testForm.controls;
@@ -43,11 +44,16 @@ export class AppComponent implements OnInit, OnDestroy {
     };
 
     this.reversibleSrv.check(form).subscribe((response) => {
-      if (response) {
-        this.toastSrv.success('Success!');
+      if (response.status === 'success') {
+        if (response.result?.length) {
+          this.toastSrv.success('Success!');
+        } else {
+          this.toastSrv.warning('There is no reversible numbers.');
+        }
+        this.testResult = response.result;
       }
       }, (error) => {
-        this.toastSrv.error(error.message);
+        this.toastSrv.error(error);
       }
     );
   }

@@ -31,5 +31,10 @@ html {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.mat-chip {
+  width: 50px;
+  justify-content: center;
+}
+
 @import "../node_modules/ngx-toastr/toastr.css";
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";

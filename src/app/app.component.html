@@ -24,6 +24,27 @@
         </form>
       </div>
     </div>
+    <div class="row" *ngIf="testResult?.length">
+      <div class="col-12">
+        <div class="result-wrapper">
+          <h3>Reversible Numbers are:</h3>
+          <mat-chip-list>
+            <mat-chip
+              *ngFor="let item of testResult; let i = index"
+              color="primary"
+              selected
+            >
+              {{item}}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="testResult && !testResult.length">
+      <div class="col-12">
+        <h3>No Numbers</h3>
+      </div>
+    </div>
   </div>
 </div>
 
