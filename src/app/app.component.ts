@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators}  from '@angular/forms';
 import { validateAllFormFields } from './shared/helpers/common';
+import { ToastrService } from 'ngx-toastr';
+import { ReversibleService } from './services/reversible.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,11 @@ export class AppComponent implements OnInit, OnDestroy {
     return this.testForm.controls;
   }
 
-  constructor() {}
+  constructor(
+    protected toastSrv:ToastrService,
+    protected reversibleSrv: ReversibleService
+  ) {
+  }
 
   ngOnInit(): void {
     this.testForm = new FormGroup({
@@ -31,6 +37,19 @@ export class AppComponent implements OnInit, OnDestroy {
       validateAllFormFields(this.testForm);
       return;
     }
+
+    const form = {
+      ...this.testForm.value
+    };
+
+    this.reversibleSrv.check(form).subscribe((response) => {
+      if (response) {
+        this.toastSrv.success('Success!');
+      }
+      }, (error) => {
+        this.toastSrv.error(error.message);
+      }
+    );
   }
 
   isFieldInvalid(field): boolean {

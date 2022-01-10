@@ -8,6 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatChipsModule } from '@angular/material/chips';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatButtonModule } from '@angular/material/button';
+import { ApiService } from './services/api.service';
+import { ReversibleService } from './services/reversible.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import { MatButtonModule } from '@angular/material/button';
     NgxSpinnerModule,
     MatButtonModule,
   ],
-  providers: [],
+  providers: [
+    ApiService,
+    ReversibleService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
