@@ -52,10 +52,9 @@ export class AppComponent implements OnInit, OnDestroy {
         }
         this.testResult = response.result;
       }
-      }, (error) => {
-        this.toastSrv.error(error);
-      }
-    );
+    }, (error) => {
+      this.toastSrv.error(error.message);
+    });
   }
 
   isFieldInvalid(field): boolean {
