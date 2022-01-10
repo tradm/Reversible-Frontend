@@ -10,9 +10,14 @@
                 class="form-control"
                 name="number"
                 placeholder="Please insert limit number"
+                [ngClass]="{'is-invalid': isFieldInvalid('number')}"
                 formControlName="number"
                 type="text"
               />
+              <div *ngIf="isFieldInvalid('number')" class="invalid-feedback">
+                <div *ngIf="f.number.errors?.required">This field is required.</div>
+                <div *ngIf="f.number.errors?.pattern">This field should be integer.</div>
+              </div>
             </div>
             <button class="btn-check" mat-raised-button color="primary">Check</button>
           </div>

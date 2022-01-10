@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators}  from '@angular/forms';
+import { validateAllFormFields } from './shared/helpers/common';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,10 @@ import { FormControl, FormGroup, Validators}  from '@angular/forms';
 
 export class AppComponent implements OnInit, OnDestroy {
   testForm: FormGroup;
+
+  get f(): any {
+    return this.testForm.controls;
+  }
 
   constructor() {}
 
@@ -22,5 +27,13 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   submitForm(): void {
+    if (this.testForm.invalid) {
+      validateAllFormFields(this.testForm);
+      return;
+    }
+  }
+
+  isFieldInvalid(field): boolean {
+    return this.f[field].errors && (this.f[field].dirty || this.f[field].touched);
   }
 }
